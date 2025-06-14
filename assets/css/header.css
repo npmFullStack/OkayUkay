@@ -1,0 +1,37 @@
+:root {
+    --primary: #ffd700;
+    --black: #333;
+    --white: #fff;
+    --secondary: #c6b700;
+}
+
+.header {
+    width: 100%;
+    max-height: 70px;
+    position: fixed;
+    top: 0;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    background-color: var(--black);
+    gap: 10px;
+    box-shadow: 0 0 10px var(--black);
+}
+
+.burger {
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    color: var(--white);
+}
+
+.logo {
+    font-size: 2rem;
+    -webkit-text-stroke: 1px black;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.ukayText {
+    color: #fff;
+}
