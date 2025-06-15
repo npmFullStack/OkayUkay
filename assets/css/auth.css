@@ -79,7 +79,7 @@ label {
     font-weight: 600;
 }
 
-input {
+input, .input {
     width: 100%;
     padding: 10px;
     border-radius: 5px;

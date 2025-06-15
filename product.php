@@ -12,7 +12,7 @@ $database = new Database();
 $db = $database->connect();
 
 $product = new Product($db);
-$products = $product->getAllProducts($_SESSION["user_id"]);
+$products = $product->fetchProducts($_SESSION["user_id"]);
 $categories = $product->getAllCategories();
 ?>
 
@@ -43,6 +43,63 @@ rel="stylesheet"
 
 <div class="container">
 <?php require "components/sidebar.php"; ?>
+<div class="content" id="index-content">
+<div class="top-bar" id="top-layer">
+<div class="search-bar-content">
+<i class="fas fa-magnifying-glass search-icon"></i>
+<input type="search" id="search-bar" placeholder="Search...">
+<i class="fas fa-filter filter-icon"></i>
 </div>
+<a href="add-product.php" class="btn-add" id="desktop-add-btn">Add Product</a>
+<div class="category-menu" id="category-menu">
+<div class="category-item active">
+All Categories
+</div>
+<?php foreach ($categories as $category): ?>
+<div class="category-item">
+<?= htmlspecialchars($category['name']) ?>
+</div>
+<?php endforeach; ?>
+</div>
+</div>
+<a href="add-product.php" class="btn-add" id="mobile-add-btn"><i class="fas fa-plus"></i></a>
+
+<div class="card-holder">
+<?php foreach ($products as $product): ?>
+<div class="card">
+<div class="card-body">
+<img src="<?= $product["image"] ?>" alt="Product Image">
+<i class="fas fa-ellipsis-h dropdown-toggle"></i>
+<div class="dropdown-menu">
+<ul>
+<li><a href="view-product.php?id=<?= $product["id"] ?>">View</a></li>
+<li><a href="update-product.php?id=<?= $product["id"] ?>">Update</a></li>
+<li><a href="delete-product.php?id=<?= $product["id"] ?>">Delete</a></li>
+</ul>
+</div>
+
+</div>
+<div class="card-footer">
+<span class="product-name">
+<?= $product["name"] ?>
+</span>
+<span class="category-name">
+<?= $product["category_name"] ?? $category["name"] ?? "Uncategorized" ?>
+</span>
+</div>
+<div class="card-footer">
+<span class="product-stock">
+Stock Left: <strong><?= $product["stock"] ?></strong>
+</span>
+<span class="product-price">
+₱<?= $product["price"] ?>
+</span>
+</div>
+</div>
+<?php endforeach; ?>
+</div>
+</div>
+</div>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

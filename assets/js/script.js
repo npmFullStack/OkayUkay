@@ -67,4 +67,32 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+    
+        // ✅ Support multiple dropdowns
+    const toggles = document.querySelectorAll(".dropdown-toggle");
+
+    toggles.forEach(toggle => {
+        toggle.addEventListener("click", e => {
+            e.stopPropagation(); // Prevent outside click from closing it immediately
+            const menu = toggle.nextElementSibling;
+
+            // Close other dropdowns
+            document.querySelectorAll(".dropdown-menu").forEach(m => {
+                if (m !== menu) m.style.display = "none";
+            });
+
+            // Toggle current
+            menu.style.display =
+                menu.style.display === "block" ? "none" : "block";
+        });
+    });
+
+    // Close all dropdowns when clicking outside
+    document.addEventListener("click", e => {
+        if (!e.target.closest(".dropdown-toggle")) {
+            document.querySelectorAll(".dropdown-menu").forEach(menu => {
+                menu.style.display = "none";
+            });
+        }
+    });
 });

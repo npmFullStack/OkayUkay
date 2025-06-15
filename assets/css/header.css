@@ -16,6 +16,7 @@
     background-color: var(--black);
     gap: 10px;
     box-shadow: 0 0 10px var(--black);
+    z-index: 999;
 }
 
 .burger {

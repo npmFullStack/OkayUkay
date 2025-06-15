@@ -56,10 +56,14 @@ Welcome Back! <?= $_SESSION["firstname"] ?>👋
 <i class="fas fa-filter filter-icon"></i>
 </div>
 <div class="category-menu" id="category-menu">
-    <div class="category-item active">All Categories</div>
-    <?php foreach ($categories as $category): ?>
-        <div class="category-item"><?= htmlspecialchars($category['name']) ?></div>
-    <?php endforeach; ?>
+<div class="category-item active">
+All Categories
+</div>
+<?php foreach ($categories as $category): ?>
+<div class="category-item">
+<?= htmlspecialchars($category['name']) ?>
+</div>
+<?php endforeach; ?>
 </div>
 </div>
 </div>
