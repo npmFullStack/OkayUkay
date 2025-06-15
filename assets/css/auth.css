@@ -7,12 +7,19 @@
     --error: #ff2929;
 }
 
+#auth-content {
+    flex: 1;
+    transition: margin-left 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .wrapper {
     max-width: 900px;
     display: flex;
-    box-shadow: 0 0 10px var(--black);
     border-radius: 25px;
-    background-color: var(--white);
+    background-color: transparent;
 }
 
 .image-section {
@@ -100,7 +107,6 @@ input:active {
     font-size: 1rem;
     z-index: 1;
 }
-
 
 @media (max-width: 768px) {
     .image-section {
