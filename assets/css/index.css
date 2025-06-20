@@ -73,6 +73,7 @@
     border-radius: 50%;
     font-size: 2rem;
     box-shadow: 0 0 10px var(--black);
+    z-index: 999;
 }
 .filter-icon {
     cursor: pointer;
@@ -145,17 +146,6 @@
     align-items: center;
 }
 
-.card {
-    height: 350px;
-    width: 300px;
-    background-color: var(--white);
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    position: relative;
-}
-
 .dropdown-toggle {
     position: absolute;
     top: 10px;
@@ -165,30 +155,37 @@
     color: #fff;
     border-radius: 50%;
     padding: 10px;
-    z-index: 100;
+    z-index: 1;
     cursor: pointer;
+}
+.card {
+    width: 300px;
+    background-color: var(--white);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    height: auto;
 }
 
 .card-body {
-    height: 70%;
-    width: 100%;
     position: relative;
-    flex-shrink: 0;
 }
 
 .card-body img {
-    height: 100%;
     width: 100%;
+    height: 200px;
     object-fit: fill;
     border-radius: 20px 20px 0 0;
 }
 
-.product-details {
-    width: 100%;
-    padding: 5px 10px;
+.card-footer {
+    padding: 10px 20px;
+    flex-grow: 1;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .product-name {
@@ -198,26 +195,14 @@
 }
 
 .category-name {
+    width: auto;
     padding: 2.5px 10px;
-    font-size: 0.75rem;
+    font-size: 00.75rem;
     background-color: #2994ff;
     color: var(--white);
     font-weight: 700;
     border-radius: 25px;
     border: 1px solid black;
-}
-
-.card-footer {
-    width: 100%;
-    padding: 5px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-}
-
-.product-stock {
-    font-size: 0.75rem;
 }
 
 .product-price {
@@ -226,6 +211,16 @@
     font-weight: 700;
     font-size: 1.3rem;
 }
+
+.card-button-bar {
+    padding: 10px 20px;
+}
+
+#add-cart {
+    color: var(--primary);
+    border: 3px solid var(--primary);
+}
+
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -262,6 +257,14 @@
 
 .dropdown-menu a:hover {
     background-color: #f1f1f1;
+}
+
+.card-button-bar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 20px;
+    gap: 10px;
 }
 
 @media (max-width: 768px) {

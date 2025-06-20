@@ -9,6 +9,7 @@ $db = $database->connect();
 
 $product = new Product($db);
 $categories = $product->getAllCategories();
+$products = $product->getAllProducts();
 ?>
 
 <!doctype html>
@@ -65,6 +66,34 @@ All Categories
 </div>
 <?php endforeach; ?>
 </div>
+</div>
+
+<div class="card-holder">
+<?php foreach ($products as $product): ?>
+<div class="card">
+<div class="card-body">
+<img src="<?= $product["image"] ?>" alt="Product Image">
+<i class="fas fa-heart dropdown-toggle"></i>
+
+</div>
+<div class="card-footer">
+<span class="product-name">
+<?= $product["name"] ?>
+</span>
+<span class="category-name">
+<?= $product["category_name"] ?? $category["name"] ?? "Uncategorized" ?>
+</span>
+</div>
+<div class="card-footer">
+<span class="product-price">
+₱<?= $product["price"] ?>
+</span>
+</div>
+<div class="card-button-bar">
+<button class="btn-submit" ><i class="fas fa-bag-shopping"></i>Buy Now</button>
+</div>
+</div>
+<?php endforeach; ?>
 </div>
 </div>
 <script src="assets/js/script.js"></script>

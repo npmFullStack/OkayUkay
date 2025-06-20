@@ -39,10 +39,11 @@ a {
     border: none;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--white);
+    color: var(--black);
     border-radius: 10px;
     letter-spacing: 1.5px;
     border: 0.5px solid black;
+    gap: 10px;
 }
 
 .btn-submit:hover {

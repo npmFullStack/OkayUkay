@@ -8,8 +8,19 @@ if (!isset($_SESSION["user_id"])) {
 require_once "classes/Database.php";
 require_once "classes/Product.php";
 
+$database = new Database();
+$db = $database->connect();
+$product = new Product($db);
+
 $message = "";
 $status = "";
+
+$productId = $_GET["id"] ?? ($_POST["product_id"] ?? null);
+
+if (!$productId) {
+  header("Location: product.php");
+  exit();
+}
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $name = $_POST["name"] ?? "";
   $price = $_POST["price"] ?? "";
@@ -27,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $database = new Database();
     $db = $database->connect();
     $product = new Product($db);
-    if ($product->store($name, $price, $target_file, $stock, $category, $_SESSION["user_id"])) {
+    if ($product->update($name, $price, $target_file, $stock, $category, $_SESSION["user_id"])) {
       $message = "Product added successful!";
       $status = "success";
     } else {
@@ -43,6 +54,12 @@ $db = $database->connect();
 
 $product = new Product($db);
 $categories = $product->getAllCategories();
+
+$existingProduct = $product->getProductById($productId, $_SESSION["user_id"]);
+if (!$existingProduct) {
+  header("Location: product.php");
+  exit();
+}
 ?>
 
 <!doctype html>
@@ -67,7 +84,7 @@ rel="stylesheet"
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css">
-<!-- STYLES -->
+<!-- STYLES <-->
 <link href="assets/css/styles.css" rel="stylesheet" />
 <link href="assets/css/auth.css" rel="stylesheet" />
 </head>
@@ -82,29 +99,32 @@ rel="stylesheet"
 <img src="assets/images/add-product.png" alt="Product image">
 </div>
 <div class="form-section">
-<h1>Add Product</h1>
+<h1>Update Product</h1>
 <p>
-List your item for sale and reach more buyers
+Update the details of your existing product
 </p>
-<form action="add-product.php" method="POST" enctype="multipart/form-data">
+
+
+<form action="update-product.php" method="POST" enctype="multipart/form-data">
+
 <div class="form-group">
 <label for="name">
 Product Name
 </label>
-<input type="text" id="name" name="name">
+<input type="text" id="name" name="name" value="<?= $existingProduct["name"] ?>">
 </div>
 <div class="name-holder">
 <div class="form-group">
 <label for="price">
 Price
 </label>
-<input type="number" id="price" name="price">
+<input type="number" id="price" name="price" value="<?= $existingProduct["price"] ?>">
 </div>
 <div class="form-group">
 <label for="stock">
 Stock
 </label>
-<input type="number" id="stock" name="stock">
+<input type="number" id="stock" name="stock" value="<?= $existingProduct["stock"] ?>">
 </div>
 </div>
 <div class="form-group">
@@ -123,8 +143,9 @@ Category
 <label for="image">
 Image
 </label>
-<input type="file" name="image" id="image">
+<input type="file" name="image" id="image" value="<?= $existingProduct["image"] ?>">
 </div>
+<input type="hidden" name="task_id" value="<?= $productId ?>">
 <button type="submit" class="btn-submit">Submit</button>
 </form>
 </div>

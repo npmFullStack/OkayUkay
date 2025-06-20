@@ -19,7 +19,7 @@ class Product
       $stmt->execute();
       return $stmt->fetchAll();
     } catch (PDOException $e) {
-      throw new Exception("Error fetching products: " . $e->getMessage());
+      throw new Exception("Error fetchig products: " . $e->getMessage());
     }
   }
 
@@ -36,6 +36,23 @@ class Product
       return $stmt->execute();
     } catch (PDOException $e) {
       throw new Exception("Error Adding Product" . $e->getMessage());
+    }
+  }
+
+  public function updateTask($id, $name, $price, $image, $stock, $category_id, $user_id) {
+    try {
+      $sql = "UPDATE $this->table SET name = :name, price = :price, image = :image, stock = :stock WHERE id = :id AND user_id = :user_id AND category_id = :category_id";
+      $stmt = $this->db->prepare($sql);
+      $stmt->bindParam(":name", $name);
+      $stmt->bindParam(":price", $price);
+      $stmt->bindParam(":image", $image);
+      $stmt->bindParam(":stock", $stock);
+      $stmt->bindParam(":id", $id);
+      $stmt->bindParam(":category_id", $category_id);
+      $stmt->bindParam(":user_id", $user_id);
+      return $stmt->execute();
+    } catch (PDOException $e) {
+      throw new Exception("Update Task Error: " . $e->getMessage());
     }
   }
 
@@ -62,5 +79,19 @@ class Product
     $stmt->bindParam(":category_id", $category_id);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
+  public function getProductById($id, $user_id) {
+    try {
+      $sql = "SELECT * FROM $this->table WHERE id = :id AND user_id = :user_id LIMIT 1";
+      $stmt = $this->db->prepare($sql);
+      $stmt->bindParam(":id", $id);
+      $stmt->bindParam(":user_id", $user_id);
+      $stmt->execute();
+      return $stmt->fetch();
+    } catch (PDOException $e) {
+      throw new Exception("Get Task Error: " . $e->getMessage());
+    }
   }
 }
